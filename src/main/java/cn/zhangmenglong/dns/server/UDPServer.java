@@ -14,30 +14,36 @@ import io.netty.channel.socket.nio.NioDatagramChannel;
 
 public class UDPServer {
 
-    private EventLoopGroup  eventLoopGroup;
+    public UDPServer (int port) {
 
-    public void init(int port) {
-
-        eventLoopGroup = Epoll.isAvailable() ? new EpollEventLoopGroup() : new NioEventLoopGroup();
+        //创建EventLoopGroup，如果支持epoll就创建EpollEventLoopGroup，否则创建NioEventLoopGroup
+        EventLoopGroup eventLoopGroup = Epoll.isAvailable() ? new EpollEventLoopGroup() : new NioEventLoopGroup();
 
         try {
+            //创建Bootstrap
             Bootstrap bootstrap = new Bootstrap();
 
+            //设置bootstrap
             bootstrap.group(eventLoopGroup)
+                    //设置channel,如果支持epoll就使用EpollDatagramChannel，否则使用NioDatagramChannel
                     .channel(Epoll.isAvailable() ? EpollDatagramChannel.class : NioDatagramChannel.class)
+                    //设置SO_BROADCAST
                     .option(ChannelOption.SO_BROADCAST, true)
+                    //设置业务处理线程
                     .handler(new UDPThread());
 
+            //如果支持epoll
             if (Epoll.isAvailable()) {
+                //设置允许端口复用
                 bootstrap.option(EpollChannelOption.SO_REUSEPORT, true);
-            }
-
-            if (Epoll.isAvailable()) {
+                //获取cpu数量
                 int cpuNum = Runtime.getRuntime().availableProcessors();
+                //循环开启多个线程监听53端口消息
                 for (int index = 0; index < cpuNum; index++) {
                     ChannelFuture channelFuture = bootstrap.bind(port).sync();
                 }
             } else {
+                //不支持epoll就单线程监听53端口消息
                 ChannelFuture channelFuture = bootstrap.bind(port).sync();
             }
 
