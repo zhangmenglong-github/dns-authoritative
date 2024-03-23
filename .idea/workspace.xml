@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/server/UDPServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/UDPThread.java" afterDir="false" />
+    <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="初步搭建TCP和UDP服务">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/DNSZone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/SetResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/geo.mmdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/TCPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/TCPThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/UDPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/UDPThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/ZoneMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/ZoneMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +32,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2e2C2Ssj6ibOymhuQKGDGPgEUq6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -53,17 +54,28 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/360MoveData/Users/WLJ/Desktop/dns-authoritative/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\360MoveData\Users\WLJ\Desktop\dns-authoritative\src\main\resources" />
+      <recent name="D:\360MoveData\Users\WLJ\Desktop\dns-authoritative\src\main\java\cn\zhangmenglong\dns\zone" />
+      <recent name="D:\360MoveData\Users\WLJ\Desktop\dns-authoritative\src\main\java\cn\zhangmenglong\dns\zone\record" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.zhangmenglong.dns.zone" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cn.zhangmenglong.dns.App" />
@@ -84,6 +96,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-4caba194b151-ae57be32" />
+        <option value="jdk-18.0.2-corretto-18.0.2-4caba194b151-5720f15e" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -92,8 +112,29 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1711093079807</updated>
-      <workItem from="1711093080895" duration="9126000" />
+      <workItem from="1711093080895" duration="9638000" />
+      <workItem from="1711160770531" duration="23392000" />
+      <workItem from="1711331991445" duration="12649000" />
+      <workItem from="1711348016058" duration="12000" />
+      <workItem from="1711348572920" duration="7641000" />
     </task>
+    <task id="LOCAL-00001" summary="1-初始化仓库&#10;2-增加netty udp server">
+      <option name="closed" value="true" />
+      <created>1711103657887</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711103657887</updated>
+    </task>
+    <task id="LOCAL-00002" summary="初步搭建TCP和UDP服务">
+      <option name="closed" value="true" />
+      <created>1711184417453</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711184417453</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,5 +142,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="1-初始化仓库&#10;2-增加netty udp server" />
+    <MESSAGE value="初步搭建TCP和UDP服务" />
+    <option name="LAST_COMMIT_MESSAGE" value="初步搭建TCP和UDP服务" />
   </component>
 </project>

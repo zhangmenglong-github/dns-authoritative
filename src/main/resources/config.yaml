@@ -1,0 +1,2 @@
+port: 53
+mq-server: rabbitmq.dns.zhangmenglong.cn
