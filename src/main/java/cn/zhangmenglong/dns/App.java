@@ -2,6 +2,7 @@ package cn.zhangmenglong.dns;
 
 
 import cn.zhangmenglong.dns.config.Config;
+import cn.zhangmenglong.dns.init.InitRabbitMQ;
 import cn.zhangmenglong.dns.server.TCPServer;
 import cn.zhangmenglong.dns.server.UDPServer;
 
@@ -15,9 +16,12 @@ public class App
     {
         //构造配置文件
         new Config();
+
+        InitRabbitMQ.init();
+
         //启动UDP服务
-        new UDPServer((Integer) Config.params.get("port"));
+        new UDPServer((Integer) Config.params.get("dns-port"));
         //启动TCP服务
-        new TCPServer((Integer) Config.params.get("port"));
+        new TCPServer((Integer) Config.params.get("dns-port"));
     }
 }

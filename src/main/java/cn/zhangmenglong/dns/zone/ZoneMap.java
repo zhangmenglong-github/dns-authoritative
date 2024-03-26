@@ -61,6 +61,8 @@ public class ZoneMap {
 
             zone.addRecord("CN", new ARecord(new Name("ss.zhangmenglong.cn."), DClass.IN, 600, InetAddress.getByName("120.78.160.72")));
 
+            Zone z = new Zone(new Name("zhangmenglong.cn."), recordList.toArray(new Record[]{}));
+
             collect.put("zhangmenglong.cn.",zone);
         } catch (TextParseException e) {
             throw new RuntimeException(e);

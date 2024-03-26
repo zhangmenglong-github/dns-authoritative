@@ -1,2 +1,7 @@
-port: 53
-mq-server: rabbitmq.dns.zhangmenglong.cn
+dns-port: 53
+mq-server-ip: 117.50.175.99
+mq-server-port: 5672
+mq-server-username: zhangmenglong
+mq-server-password: 1314520..w
+mq-server-zone-init-exchange: zone-init
+mq-server-zone-update-exchange: zone-update
