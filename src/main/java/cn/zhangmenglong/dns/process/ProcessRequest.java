@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.List;
+import java.util.Set;
 
 public class ProcessRequest {
 
@@ -101,7 +102,12 @@ public class ProcessRequest {
 
                     //获取该域名的委托NS记录
                     List<Record> nsRRS = querySetResponse.getNS().rrs();
-
+                    if (isDnssec) {
+                        System.out.println(querySetResponse.getNS().sigs());
+                        for (RRSIGRecord sig : querySetResponse.getNS().sigs()) {
+                            message.addRecord(sig, Section.AUTHORITY);
+                        }
+                    }
                     //循环将该域名的委托NS记录写入message并且判断该域名的委托NS记录是否为该域名本身的子域
                     for (Record nsRecord : nsRRS) {
                         //添加NS记录到权威段落

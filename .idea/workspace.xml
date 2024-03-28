@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="初步完成DNS分区解析改造服务">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/InitRabbitMQ.java" afterDir="false" />
+    <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="接入rabbitmq">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/RabbitMQ.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/InitRabbitMQ.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/ZoneMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/ZoneMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yaml" afterDir="false" />
     </list>
@@ -113,6 +114,11 @@
       <workItem from="1711348016058" duration="12000" />
       <workItem from="1711348572920" duration="12791000" />
       <workItem from="1711417714323" duration="24000" />
+      <workItem from="1711420360527" duration="56000" />
+      <workItem from="1711420462269" duration="2836000" />
+      <workItem from="1711436106989" duration="982000" />
+      <workItem from="1711505424361" duration="19162000" />
+      <workItem from="1711598460892" duration="6200000" />
     </task>
     <task id="LOCAL-00001" summary="1-初始化仓库&#10;2-增加netty udp server">
       <option name="closed" value="true" />
@@ -138,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711356546373</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="接入rabbitmq">
+      <option name="closed" value="true" />
+      <created>1711420388880</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711420388880</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +174,7 @@
     <MESSAGE value="1-初始化仓库&#10;2-增加netty udp server" />
     <MESSAGE value="初步搭建TCP和UDP服务" />
     <MESSAGE value="初步完成DNS分区解析改造服务" />
-    <option name="LAST_COMMIT_MESSAGE" value="初步完成DNS分区解析改造服务" />
+    <MESSAGE value="接入rabbitmq" />
+    <option name="LAST_COMMIT_MESSAGE" value="接入rabbitmq" />
   </component>
 </project>
