@@ -16,6 +16,16 @@ public class DNSZone implements Serializable {
     private SOARecord SOA;
     private boolean hasWild;
 
+    private boolean dnssec;
+
+    public void setDnssec(boolean dnssec) {
+        this.dnssec = dnssec;
+    }
+
+    public Boolean getDnssec() {
+        return dnssec;
+    }
+
     private void validate(String geo) throws IOException {
         originNode = exactName(geo, origin);
         if (originNode == null) {

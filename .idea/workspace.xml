@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="更换设备提交">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_3_25_16_49__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/RabbitMQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/RabbitMQ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/DNSZone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/DNSZone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +47,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/360MoveData/Users/WLJ/Desktop/dns-authoritative/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -118,6 +122,9 @@
       <workItem from="1712744289504" duration="44000" />
       <workItem from="1712989660517" duration="2421000" />
       <workItem from="1713078647671" duration="26000" />
+      <workItem from="1715322372634" duration="832000" />
+      <workItem from="1715392088247" duration="6333000" />
+      <workItem from="1715492822584" duration="11788000" />
     </task>
     <task id="LOCAL-00001" summary="1-初始化仓库&#10;2-增加netty udp server">
       <option name="closed" value="true" />

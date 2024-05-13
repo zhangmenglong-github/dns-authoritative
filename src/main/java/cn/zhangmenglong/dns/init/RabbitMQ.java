@@ -49,16 +49,16 @@ public class RabbitMQ {
                         String domain = (String) zone.get("domain");
                         Map<String, List<Record>> geoZone = (Map<String, List<Record>>) zone.get("geoZone");
                         List<Record> recordList = geoZone.get("*");
-                        System.out.println(recordList);
 
                         DNSZone dnsZone = new DNSZone("*", new Name(domain), recordList.toArray(new Record[]{}));
+
+                        dnsZone.setDnssec((Boolean) zone.get("dnssec"));
 
                         for (String geo : geoZone.keySet()) {
                             if (!geo.contentEquals("*")) {
                                 recordList = geoZone.get(geo);
                                 for (Record record : recordList) {
                                     dnsZone.addRecord(geo, record);
-                                    System.out.println(record);
                                 }
                             }
                         }

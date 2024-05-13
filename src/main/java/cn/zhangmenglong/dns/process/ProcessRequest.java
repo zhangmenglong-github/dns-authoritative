@@ -69,7 +69,7 @@ public class ProcessRequest {
                 //拼接查询域名段落
                 queryNameStringBuilder.insert(0, queryName.getLabelString(index) + ".");
                 //查询该域名区域是否存在
-                queryZone = ZoneMap.collect.containsKey(queryNameStringBuilder.toString()) ? ZoneMap.collect.get(queryNameStringBuilder.toString()) : queryZone;
+                queryZone = ZoneMap.collect.getOrDefault(queryNameStringBuilder.toString().toLowerCase(), queryZone);
             }
 
             //如果该查询域名的区域存在
@@ -78,7 +78,7 @@ public class ProcessRequest {
                 OPTRecord eDNSOptRecord = message.getOPT();
                 boolean isDnssec = false;
                 if (eDNSOptRecord != null) {
-                    isDnssec = getClientDnssec(message.getOPT());
+                    isDnssec = getClientDnssec(message.getOPT()) && queryZone.getDnssec();
                     String ednsIp = getClientIp(eDNSOptRecord);
                     clientIp = (ednsIp == null) ? clientIp : ednsIp;
                 }
@@ -370,8 +370,8 @@ public class ProcessRequest {
                             }
                         } else {
                             if (isDnssec) {
-                                RRset soaRRset = queryZone.findExactMatch("*", queryName, Type.SOA);
-                                RRset nsecRRset = queryZone.findExactMatch("*", queryName, Type.NSEC);
+                                RRset soaRRset = queryZone.findExactMatch("*", queryZone.getOrigin(), Type.SOA);
+                                RRset nsecRRset = queryZone.findExactMatch("*", queryZone.getOrigin(), Type.NSEC);
                                 List<RRSIGRecord> soaSigs = soaRRset.sigs();
                                 for (RRSIGRecord soaSig : soaSigs) {
                                     message.addRecord(soaSig, Section.AUTHORITY);
@@ -392,8 +392,8 @@ public class ProcessRequest {
                         }
                     } else {
                         if (isDnssec) {
-                            RRset soaRRset = queryZone.findExactMatch("*", queryName, Type.SOA);
-                            RRset nsecRRset = queryZone.findExactMatch("*", queryName, Type.NSEC);
+                            RRset soaRRset = queryZone.findExactMatch("*", queryZone.getOrigin(), Type.SOA);
+                            RRset nsecRRset = queryZone.findExactMatch("*", queryZone.getOrigin(), Type.NSEC);
                             List<RRSIGRecord> soaSigs = soaRRset.sigs();
                             for (RRSIGRecord soaSig : soaSigs) {
                                 message.addRecord(soaSig, Section.AUTHORITY);
