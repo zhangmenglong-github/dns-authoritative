@@ -18,7 +18,7 @@ public class App
             //构造配置文件
             new Config();
 
-            new RabbitMQ();
+            RabbitMQ.init();
 
             //启动UDP服务
             new UDPServer((Integer) Config.params.get("dns-port"));

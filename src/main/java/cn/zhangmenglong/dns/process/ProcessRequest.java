@@ -13,7 +13,9 @@ import org.xbill.DNS.Record;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ProcessRequest {
@@ -47,9 +49,10 @@ public class ProcessRequest {
         }
     }
 
-    public static void find(Message message, boolean isUdp, String clientIp) {
+    public static Map<String, Object> find(Message message, boolean isUdp, String clientIp) {
+        int queryType = message.getQuestion().getType();
         //拒绝ANY类型查询
-        if (message.getQuestion().getType() != Type.ANY) {
+        if (queryType != Type.ANY) {
 
             //获取DNS查询域名
             Name queryName = message.getQuestion().getName();
@@ -74,14 +77,21 @@ public class ProcessRequest {
 
             //如果该查询域名的区域存在
             if (queryZone != null) {
-
+                Map<String, Object> queryStatistics = new HashMap<>();
+                queryStatistics.put("queryDomain", queryZone.getSOA().getName().toString());
+                queryStatistics.put("queryName", queryName.toString());
+                queryStatistics.put("queryType", queryType);
+                queryStatistics.put("clientIp", clientIp);
+                queryStatistics.put("ednsIp", null);
                 OPTRecord eDNSOptRecord = message.getOPT();
                 boolean isDnssec = false;
                 if (eDNSOptRecord != null) {
                     isDnssec = getClientDnssec(message.getOPT()) && queryZone.getDnssec();
                     String ednsIp = getClientIp(eDNSOptRecord);
                     clientIp = (ednsIp == null) ? clientIp : ednsIp;
+                    queryStatistics.put("ednsIp", ednsIp);
                 }
+                queryStatistics.put("dnssec", isDnssec);
 
                 String geoCode;
 
@@ -95,7 +105,7 @@ public class ProcessRequest {
 
 
                 //在该区域中查询该域名对应记录
-                SetResponse querySetResponse = queryZone.findRecords(geoCode, queryName, message.getQuestion().getType());
+                SetResponse querySetResponse = queryZone.findRecords(geoCode, queryName, queryType);
 
                 //如果查询到该域名是委托域名
                 if (querySetResponse.isDelegation()) {
@@ -248,7 +258,7 @@ public class ProcessRequest {
 
                     if (!geoCode.contentEquals("*")) {
                         //在该区域中查询该域名对应记录
-                        querySetResponse = queryZone.findRecords("*", queryName, message.getQuestion().getType());
+                        querySetResponse = queryZone.findRecords("*", queryName, queryType);
 
                         //如果查询到该域名是委托域名
                         if (querySetResponse.isDelegation()) {
@@ -413,12 +423,13 @@ public class ProcessRequest {
                         message.getHeader().setFlag(Flags.AA);
                     }
                 }
+                return queryStatistics;
+            } else {
+                return null;
             }
+        } else {
+            return null;
         }
-
-
-
-
     }
 
 }

@@ -14,17 +14,20 @@ import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 public class RabbitMQ {
-    private Channel channel;
+    private static Channel channel;
 
-    public RabbitMQ() {
+    private static String statisticsQueue;
+
+    public static void init() {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost((String) Config.params.get("mq-server-ip"));
         connectionFactory.setPort((Integer) Config.params.get("mq-server-port"));
         connectionFactory.setUsername((String) Config.params.get("mq-server-username"));
         connectionFactory.setPassword((String) Config.params.get("mq-server-password"));
+        String adminQueue = (String) Config.params.get("mq-server-admin-init-queue");
         String authoritativeQueue = (String) Config.params.get("mq-server-authoritative-init-queue");
         String updateExchange = (String) Config.params.get("mq-server-authoritative-update-exchange");
-        String initExchange = (String) Config.params.get("mq-server-authoritative-init-exchange");
+        statisticsQueue = (String) Config.params.get("mq-server-authoritative-statistics-queue");
         final ExceptionHandler exceptionHandler = new DefaultExceptionHandler() {
             @Override
             public void handleConsumerException(Channel channel, Throwable exception, Consumer consumer, String consumerTag, String methodName) {}
@@ -32,12 +35,9 @@ public class RabbitMQ {
         connectionFactory.setExceptionHandler(exceptionHandler);
         try {
             Connection connection = connectionFactory.newConnection();
-
             channel = connection.createChannel();
-
             channel.queueDeclare(authoritativeQueue, true, false, true, null);
             channel.exchangeDeclare(updateExchange, BuiltinExchangeType.FANOUT, true, false, null);
-            channel.exchangeDeclare(initExchange, BuiltinExchangeType.FANOUT, true, false, null);
             channel.queueBind(authoritativeQueue, updateExchange, "");
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
@@ -47,29 +47,41 @@ public class RabbitMQ {
                     try {
                         Map<String, Object> zone = (Map<String, Object>) objectInputStream.readObject();
                         String domain = (String) zone.get("domain");
-                        Map<String, List<Record>> geoZone = (Map<String, List<Record>>) zone.get("geoZone");
-                        List<Record> recordList = geoZone.get("*");
+                        String type = (String) zone.get("type");
 
-                        DNSZone dnsZone = new DNSZone("*", new Name(domain), recordList.toArray(new Record[]{}));
+                        if ("update".contentEquals(type)) {
+                            Map<String, List<Record>> geoZone = (Map<String, List<Record>>) zone.get("geoZone");
+                            List<Record> recordList = geoZone.get("*");
 
-                        dnsZone.setDnssec((Boolean) zone.get("dnssec"));
+                            DNSZone dnsZone = new DNSZone("*", new Name(domain), recordList.toArray(new Record[]{}));
 
-                        for (String geo : geoZone.keySet()) {
-                            if (!geo.contentEquals("*")) {
-                                recordList = geoZone.get(geo);
-                                for (Record record : recordList) {
-                                    dnsZone.addRecord(geo, record);
+                            dnsZone.setDnssec((Boolean) zone.get("dnssec"));
+
+                            for (String geo : geoZone.keySet()) {
+                                if (!geo.contentEquals("*")) {
+                                    recordList = geoZone.get(geo);
+                                    for (Record record : recordList) {
+                                        dnsZone.addRecord(geo, record);
+                                    }
                                 }
                             }
+                            ZoneMap.collect.put(domain, dnsZone);
+                        } else if ("delete".contentEquals(type)) {
+                            ZoneMap.collect.remove(domain);
                         }
-                        ZoneMap.collect.put(domain, dnsZone);
+
                     } catch (ClassNotFoundException ignored) {
                     }
                 }
             };
             channel.basicConsume(authoritativeQueue, true, consumer);
-            channel.basicPublish(initExchange, "", null, authoritativeQueue.getBytes());
-        } catch (IOException | TimeoutException ignored) {
-        }
+            channel.basicPublish("", adminQueue, null, authoritativeQueue.getBytes());
+        } catch (IOException | TimeoutException ignored) {}
+    }
+
+    public static void send(byte[] body) {
+        try {
+            channel.basicPublish("", statisticsQueue, null, body);
+        } catch (IOException ignored) {}
     }
 }

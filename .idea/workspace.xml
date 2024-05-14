@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="更换设备提交">
+    <list default="true" id="9edae5de-ad1f-4285-bb98-e8312535aeba" name="Changes" comment="完成dnssec验证">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/RabbitMQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/init/RabbitMQ.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/process/ProcessRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/DNSZone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/zone/DNSZone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/TCPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/TCPThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/UDPThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/zhangmenglong/dns/thread/UDPThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,30 +39,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.dns-authoritative [package].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/360MoveData/Users/WLJ/Desktop/dns-authoritative/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.App.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.dns-authoritative [package].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/micro/IdeaProjects/wmdb-javaadmin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\360MoveData\Users\WLJ\Desktop\dns-authoritative\src\main\resources" />
@@ -124,7 +126,7 @@
       <workItem from="1713078647671" duration="26000" />
       <workItem from="1715322372634" duration="832000" />
       <workItem from="1715392088247" duration="6333000" />
-      <workItem from="1715492822584" duration="11788000" />
+      <workItem from="1715492822584" duration="34279000" />
     </task>
     <task id="LOCAL-00001" summary="1-初始化仓库&#10;2-增加netty udp server">
       <option name="closed" value="true" />
@@ -174,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712744315495</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="完成dnssec验证">
+      <option name="closed" value="true" />
+      <created>1715593485772</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715593485772</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +209,7 @@
     <MESSAGE value="接入rabbitmq" />
     <MESSAGE value="初步增加测试dnssec" />
     <MESSAGE value="更换设备提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="更换设备提交" />
+    <MESSAGE value="完成dnssec验证" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成dnssec验证" />
   </component>
 </project>
