@@ -85,13 +85,16 @@ public class ProcessRequest {
                 queryStatistics.put("ednsIp", null);
                 OPTRecord eDNSOptRecord = message.getOPT();
                 boolean isDnssec = false;
+                queryStatistics.put("requestDnssec", false);
                 if (eDNSOptRecord != null) {
-                    isDnssec = getClientDnssec(message.getOPT()) && queryZone.getDnssec();
+                    isDnssec = getClientDnssec(message.getOPT());
+                    queryStatistics.put("requestDnssec", isDnssec);
+                    isDnssec = isDnssec && queryZone.getDnssec();
                     String ednsIp = getClientIp(eDNSOptRecord);
                     clientIp = (ednsIp == null) ? clientIp : ednsIp;
                     queryStatistics.put("ednsIp", ednsIp);
                 }
-                queryStatistics.put("dnssec", isDnssec);
+                queryStatistics.put("responseDnssec", isDnssec);
 
                 String geoCode;
 

@@ -39,6 +39,7 @@ public class UDPThread extends SimpleChannelInboundHandler<DatagramPacket> {
             if (queryStatistics != null) {
                 queryStatistics.put("isUdp", true);
                 queryStatistics.put("queryTime", System.currentTimeMillis());
+                queryStatistics.put("dnsMessage", message.toWire());
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
                 objectOutputStream.writeObject(queryStatistics);

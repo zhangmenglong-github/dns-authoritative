@@ -42,9 +42,9 @@ public class RabbitMQ {
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    ByteArrayInputStream inputStream = new ByteArrayInputStream(body);
-                    ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                     try {
+                        ByteArrayInputStream inputStream = new ByteArrayInputStream(body);
+                        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                         Map<String, Object> zone = (Map<String, Object>) objectInputStream.readObject();
                         String domain = (String) zone.get("domain");
                         String type = (String) zone.get("type");
@@ -69,12 +69,13 @@ public class RabbitMQ {
                         } else if ("delete".contentEquals(type)) {
                             ZoneMap.collect.remove(domain);
                         }
-
-                    } catch (ClassNotFoundException ignored) {
+                        channel.basicAck(envelope.getDeliveryTag(), false);
+                    } catch (Exception ignored) {
+                        channel.basicNack(envelope.getDeliveryTag(), false, true);
                     }
                 }
             };
-            channel.basicConsume(authoritativeQueue, true, consumer);
+            channel.basicConsume(authoritativeQueue, false, consumer);
             channel.basicPublish("", adminQueue, null, authoritativeQueue.getBytes());
         } catch (IOException | TimeoutException ignored) {}
     }
