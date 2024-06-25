@@ -1,9 +1,9 @@
 dns-port: 53
-mq-server-ip: 117.50.175.99
-mq-server-port: 5672
-mq-server-username: zhangmenglong
-mq-server-password: 1314520..w
+mq-server-ip: ip
+mq-server-port: 15672
+mq-server-username: root
+mq-server-password: password
 mq-server-admin-init-queue: admin-queue
-mq-server-authoritative-init-queue: authoritative-queue-ns1
+mq-server-authoritative-init-queue: authoritative-queue-ns2
 mq-server-authoritative-update-exchange: authoritative-update
 mq-server-authoritative-statistics-queue: statistics-queue
